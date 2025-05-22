@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "reforge_stone",
+  "version": "${version}",
+  "name": "Reforge Stone",
+  "description": "Add data-driven reforge stone system",
+  "authors": [
+    "IAFEnvoy"
+  ],
+  "contact": {
+    "sources": "https://github.com/IAFEnvoy/ReforgeStone"
+  },
+  "license": "All Right Reserved",
+  "icon": "logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.iafenvoy.reforgestone.fabric.ReforgeStoneFabric"
+    ],
+    "client": [
+      "com.iafenvoy.reforgestone.fabric.client.ReforgeStoneFabricClient"
+    ]
+  },
+  "accessWidener": "reforge_stone.accesswidener",
+  "mixins": [
+    "reforge_stone.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "~1.20.1"
+  }
+}

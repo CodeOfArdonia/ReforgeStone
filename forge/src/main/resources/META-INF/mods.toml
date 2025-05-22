@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+issueTrackerURL = "https://github.com/IAFEnvoy/ReforgeStone/issues"
+license = "All Right Reserved"
+
+[[mods]]
+modId = "reforge_stone"
+version = "${version}"
+displayName = "Reforge Stone"
+authors = "IAFEnvoy"
+description = '''
+Add data-driven reforge stone system
+'''
+logoFile = "logo.png"
+
+[[dependencies.reforge_stone]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.reforge_stone]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"
