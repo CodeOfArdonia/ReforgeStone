@@ -1,13 +1,20 @@
 package com.iafenvoy.reforgestone.render;
 
+import com.iafenvoy.reforgestone.data.modifier.Modifier;
+import com.iafenvoy.reforgestone.data.modifier.builtin.GlintModifier;
+import com.iafenvoy.reforgestone.data.stone.StoneTypeRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 
@@ -59,6 +66,10 @@ public class GlintLayerManager extends RenderLayer {
     }
 
     public static boolean shouldAlwaysGlint(ItemStack stack) {
+        List<Modifier<?>> modifiers = StoneTypeRegistry.getModifiers(stack);
+        for (Modifier<?> modifier : modifiers)
+            if (modifier instanceof GlintModifier m && m.always())
+                return true;
         return !stack.isEmpty() &&
                 stack.getNbt() != null &&
                 stack.getNbt().contains(GlintManager.GLINT_KEY, NbtElement.STRING_TYPE) &&
@@ -67,6 +78,10 @@ public class GlintLayerManager extends RenderLayer {
     }
 
     public static RenderLayer processStack(RenderLayer origin, ItemStack stack) {
+        List<Modifier<?>> modifiers = StoneTypeRegistry.getModifiers(stack);
+        for (Modifier<?> modifier : modifiers)
+            if (modifier instanceof GlintModifier m && m.always())
+                return DIRECT_LAYERS.getOrDefault(GlintManager.BY_ID.getOrDefault(m.color(), GlintManager.DEFAULT), RenderLayer.getDirectGlint());
         if (!stack.isEmpty() && stack.getNbt() != null && stack.getNbt().contains(GlintManager.GLINT_KEY, NbtElement.STRING_TYPE)) {
             String id = stack.getOrCreateNbt().getString(GlintManager.GLINT_KEY);
             if (stack.getNbt().getBoolean(GlintManager.GLINT_ALWAYS_KEY))
@@ -76,6 +91,10 @@ public class GlintLayerManager extends RenderLayer {
     }
 
     public static RenderLayer processArmor(RenderLayer origin, ItemStack stack) {
+        List<Modifier<?>> modifiers = StoneTypeRegistry.getModifiers(stack);
+        for (Modifier<?> modifier : modifiers)
+            if (modifier instanceof GlintModifier m && m.always())
+                return ARMOR_LAYERS.getOrDefault(GlintManager.BY_ID.getOrDefault(m.color(), GlintManager.DEFAULT), RenderLayer.getDirectGlint());
         if (!stack.isEmpty() && stack.getNbt() != null && stack.getNbt().contains(GlintManager.GLINT_KEY, NbtElement.STRING_TYPE)) {
             String id = stack.getOrCreateNbt().getString(GlintManager.GLINT_KEY);
             if (stack.getNbt().getBoolean(GlintManager.GLINT_ALWAYS_KEY))

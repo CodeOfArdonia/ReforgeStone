@@ -8,6 +8,11 @@
       "type": "reforge_stone:glint",
       "color": "white",
       "always": true
+    },
+    {
+      "type": "reforge_stone:name",
+      "prefix": "111 ",
+      "color": -65536
     }
   ]
 }

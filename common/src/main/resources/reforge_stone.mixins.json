@@ -10,7 +10,8 @@
   ],
   "mixins": [
     "AnvilScreenHandlerMixin",
-    "ItemMixin"
+    "ItemMixin",
+    "ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1

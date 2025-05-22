@@ -25,8 +25,4 @@ public record StoneTypeData(String translate, List<Modifier<?>> modifiers,
     public boolean matchIngredient(ItemStack stack) {
         return this.ingredients.stream().anyMatch(x -> x.map(stack::isOf, stack::isIn));
     }
-
-    public void apply(ItemStack stack) {
-        this.modifiers.forEach(x -> x.apply(stack));
-    }
 }

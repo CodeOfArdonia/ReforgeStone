@@ -1,0 +1,19 @@
+{
+  "translate": "item.minecraft.tnt",
+  "ingredients": [
+    "minecraft:tnt"
+  ],
+  "modifiers": [
+    {
+      "type": "reforge_stone:glint",
+      "color": "red",
+      "always": true
+    },
+    {
+      "type": "reforge_stone:attribute",
+      "attribute": "minecraft:generic.attack_damage",
+      "value": 10,
+      "operation": "MULTIPLY_TOTAL"
+    }
+  ]
+}
