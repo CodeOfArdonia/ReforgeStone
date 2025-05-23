@@ -17,8 +17,8 @@
     "main": [
       "com.iafenvoy.reforgestone.fabric.ReforgeStoneFabric"
     ],
-    "client": [
-      "com.iafenvoy.reforgestone.fabric.client.ReforgeStoneFabricClient"
+    "emi": [
+      "com.iafenvoy.reforgestone.compat.emi.SowRecipePlugin"
     ]
   },
   "accessWidener": "reforge_stone.accesswidener",

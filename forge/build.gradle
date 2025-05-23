@@ -38,6 +38,10 @@ dependencies {
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+
+    // Optional
+    // EMI
+    modImplementation "dev.emi:emi-forge:${emi_version}"
 }
 
 processResources {
