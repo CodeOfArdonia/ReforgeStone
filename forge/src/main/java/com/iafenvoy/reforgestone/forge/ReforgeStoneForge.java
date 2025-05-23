@@ -11,7 +11,6 @@ import net.minecraftforge.registries.DataPackRegistryEvent;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ReforgeStoneForge {
     public ReforgeStoneForge() {
-        ReforgeStone.init();
     }
 
     @SubscribeEvent
