@@ -14,15 +14,21 @@ import net.minecraft.registry.tag.TagKey;
 import java.util.List;
 
 public record StoneTypeData(String translate, List<Modifier<?>> modifiers,
-                            List<Either<Item, TagKey<Item>>> ingredients) {
+                            List<Either<Item, TagKey<Item>>> ingredients,
+                            List<Either<Item, TagKey<Item>>> targets) {
     private static final Codec<Either<Item, TagKey<Item>>> ITEM_OR_TAG = Codec.either(Registries.ITEM.getCodec(), TagKey.codec(RegistryKeys.ITEM));
     public static final Codec<StoneTypeData> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.STRING.fieldOf("translate").forGetter(StoneTypeData::translate),
             ModifierType.CODEC.listOf().fieldOf("modifiers").forGetter(StoneTypeData::modifiers),
-            ITEM_OR_TAG.listOf().fieldOf("ingredients").forGetter(StoneTypeData::ingredients)
+            ITEM_OR_TAG.listOf().fieldOf("ingredients").forGetter(StoneTypeData::ingredients),
+            ITEM_OR_TAG.listOf().fieldOf("targets").forGetter(StoneTypeData::targets)
     ).apply(i, StoneTypeData::new));
 
     public boolean matchIngredient(ItemStack stack) {
         return this.ingredients.stream().anyMatch(x -> x.map(stack::isOf, stack::isIn));
+    }
+
+    public boolean matchTarget(ItemStack stack) {
+        return this.targets.stream().anyMatch(x -> x.map(stack::isOf, stack::isIn));
     }
 }

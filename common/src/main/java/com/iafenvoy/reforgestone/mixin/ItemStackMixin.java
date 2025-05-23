@@ -30,9 +30,9 @@ public class ItemStackMixin {
 
     @Inject(method = "getAttributeModifiers", at = @At("TAIL"), cancellable = true)
     private void handleAttributes(EquipmentSlot slot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
-        if (slot != EquipmentSlot.MAINHAND) return;
         Multimap<EntityAttribute, EntityAttributeModifier> map = HashMultimap.create();
         map.putAll(cir.getReturnValue());
+        if (map.isEmpty()) return;
         List<Modifier<?>> modifiers = StoneTypeRegistry.getModifiers(this.reforge_stone$self());
         for (Modifier<?> modifier : modifiers)
             if (modifier instanceof AttributeModifier m)

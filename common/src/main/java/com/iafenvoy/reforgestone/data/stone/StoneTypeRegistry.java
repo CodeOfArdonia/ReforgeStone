@@ -17,7 +17,7 @@ import java.util.List;
 
 public class StoneTypeRegistry {
     public static final RegistryKey<Registry<StoneTypeData>> REGISTRY_KEY = RegistryKey.ofRegistry(Identifier.of(ReforgeStone.MOD_ID, "stone_type"));
-    private static final String STONE_TYPE_KEY = "reforged_stone";
+    private static final String STONE_TYPE_KEY = ReforgeStone.MOD_ID;
 
     @Nullable
     public static StoneTypeData get(DynamicRegistryManager manager, ItemStack stack) {
@@ -33,7 +33,7 @@ public class StoneTypeRegistry {
     }
 
     public static List<Modifier<?>> getModifiers(ItemStack stack) {
-        if (!hasData(stack)) return List.of();
+        if (stack.getNbt() == null || !hasData(stack)) return List.of();
         return ModifierType.CODEC.listOf().parse(NbtOps.INSTANCE, stack.getNbt().get(STONE_TYPE_KEY)).resultOrPartial(ReforgeStone.LOGGER::error).orElse(List.of());
     }
 

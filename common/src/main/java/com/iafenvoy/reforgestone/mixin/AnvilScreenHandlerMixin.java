@@ -4,9 +4,7 @@ import com.iafenvoy.reforgestone.data.stone.StoneTypeData;
 import com.iafenvoy.reforgestone.data.stone.StoneTypeRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.screen.*;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -34,7 +32,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
     private void addSongStoneRecipe(CallbackInfo ci) {
         ItemStack weapon = this.input.getStack(0), stone = this.input.getStack(1);
         StoneTypeData data = StoneTypeRegistry.get(this.player.getWorld().getRegistryManager(), stone);
-        if ((weapon.getItem() instanceof SwordItem || weapon.getItem() instanceof AxeItem) && data != null) {
+        if (data != null && data.matchTarget(weapon)) {
             this.repairItemUsage = 1;
             this.levelCost.set(1);
             ItemStack result = weapon.copy();
