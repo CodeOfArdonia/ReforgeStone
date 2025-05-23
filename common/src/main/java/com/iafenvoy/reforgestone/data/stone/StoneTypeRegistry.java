@@ -36,8 +36,4 @@ public class StoneTypeRegistry {
         if (stack.getNbt() == null || !hasData(stack)) return List.of();
         return ModifierType.CODEC.listOf().parse(NbtOps.INSTANCE, stack.getNbt().get(STONE_TYPE_KEY)).resultOrPartial(ReforgeStone.LOGGER::error).orElse(List.of());
     }
-
-    public static void removeModifiers(ItemStack stack) {
-        stack.getOrCreateNbt().remove(STONE_TYPE_KEY);
-    }
 }

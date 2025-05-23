@@ -14,5 +14,5 @@ dependencies {
 
     // Optional
     // EMI
-    modImplementation "dev.emi:emi-fabric:${emi_version}"
+    modCompileOnly "dev.emi:emi-xplat-intermediary:${emi_version}:api"
 }

@@ -18,7 +18,7 @@
       "com.iafenvoy.reforgestone.fabric.ReforgeStoneFabric"
     ],
     "emi": [
-      "com.iafenvoy.reforgestone.compat.emi.SowRecipePlugin"
+      "com.iafenvoy.reforgestone.compat.emi.ReforgeStoneRecipePlugin"
     ]
   },
   "accessWidener": "reforge_stone.accesswidener",

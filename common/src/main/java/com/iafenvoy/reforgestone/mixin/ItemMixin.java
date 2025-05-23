@@ -21,7 +21,9 @@ public class ItemMixin {
     private void appendReforgeStoneTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
         if (world == null) return;
         StoneTypeData data = StoneTypeRegistry.get(world.getRegistryManager(), stack);
-        if (data != null)
-            tooltip.add(Text.translatable("item.reforge_stone.reforge_stone_tooltip").append(Text.translatable(data.translate())));
+        if (data != null) {
+            tooltip.add(Text.translatable("item.reforge_stone.reforge_stone_tooltip", Text.translatable(data.translate())));
+            data.modifiers().forEach(x -> tooltip.add(x.getTooltip()));
+        }
     }
 }

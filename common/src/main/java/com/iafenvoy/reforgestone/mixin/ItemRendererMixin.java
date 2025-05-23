@@ -22,25 +22,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = ItemRenderer.class, priority = 1001)
 public class ItemRendererMixin {
     @Unique
-    private static ItemStack nbt_glint$tempStack = ItemStack.EMPTY;
+    private static ItemStack reforge_stone$tempStack = ItemStack.EMPTY;
 
     @Inject(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V", at = @At("HEAD"))
     private void onStartRenderItem(ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci) {
-        nbt_glint$tempStack = stack;
+        reforge_stone$tempStack = stack;
     }
 
     @Inject(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V", at = @At("TAIL"))
     private void onEndRenderItem(ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci) {
-        nbt_glint$tempStack = ItemStack.EMPTY;
+        reforge_stone$tempStack = ItemStack.EMPTY;
     }
 
     @ModifyVariable(method = "getDirectItemGlintConsumer", at = @At("HEAD"), ordinal = 1, argsOnly = true)
     private static boolean changeGlint(boolean glint) {
-        return glint || GlintLayerManager.shouldAlwaysGlint(nbt_glint$tempStack);
+        return glint || GlintLayerManager.shouldAlwaysGlint(reforge_stone$tempStack);
     }
 
     @ModifyExpressionValue(method = "getDirectItemGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getDirectGlint()Lnet/minecraft/client/render/RenderLayer;"))
     private static RenderLayer onGetDirectItemGlintConsumer(RenderLayer original) {
-        return GlintLayerManager.processStack(original, nbt_glint$tempStack);
+        return GlintLayerManager.processStack(original, reforge_stone$tempStack);
     }
 }

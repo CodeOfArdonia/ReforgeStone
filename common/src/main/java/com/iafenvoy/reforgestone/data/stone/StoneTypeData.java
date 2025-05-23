@@ -9,8 +9,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public record StoneTypeData(String translate, List<Modifier<?>> modifiers,
@@ -30,5 +32,13 @@ public record StoneTypeData(String translate, List<Modifier<?>> modifiers,
 
     public boolean matchTarget(ItemStack stack) {
         return this.targets.stream().anyMatch(x -> x.map(stack::isOf, stack::isIn));
+    }
+
+    public List<Item> listAllIngredients() {
+        return this.ingredients.stream().map(x -> x.map(List::of, y -> Registries.ITEM.getEntryList(y).map(z -> z.stream().map(RegistryEntry::value).toList()).orElse(List.of()))).collect(LinkedList::new, List::addAll, List::addAll);
+    }
+
+    public List<Item> listAllTargets() {
+        return this.targets.stream().map(x -> x.map(List::of, y -> Registries.ITEM.getEntryList(y).map(z -> z.stream().map(RegistryEntry::value).toList()).orElse(List.of()))).collect(LinkedList::new, List::addAll, List::addAll);
     }
 }

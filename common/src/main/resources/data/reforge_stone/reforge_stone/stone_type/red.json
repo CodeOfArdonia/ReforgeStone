@@ -1,0 +1,29 @@
+{
+  "translate": "item.sow.enchantment_fragment.red",
+  "ingredients": [
+    "minecraft:tnt"
+  ],
+  "targets": [
+    "#minecraft:swords",
+    "#minecraft:axes"
+  ],
+  "modifiers": [
+    {
+      "type": "reforge_stone:attribute",
+      "attribute": "minecraft:generic.attack_damage",
+      "value": 3,
+      "operation": "ADDITION"
+    },
+    {
+      "type": "reforge_stone:attribute",
+      "attribute": "minecraft:generic.attack_speed",
+      "value": 0.5,
+      "operation": "ADDITION"
+    },
+    {
+      "type": "reforge_stone:glint",
+      "color": "red",
+      "always": true
+    }
+  ]
+}

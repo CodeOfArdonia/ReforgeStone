@@ -4,6 +4,8 @@ import com.iafenvoy.reforgestone.data.modifier.Modifier;
 import com.iafenvoy.reforgestone.data.modifier.ModifierType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
 
 public record NameModifier(String prefix, String suffix, int color) implements Modifier<NameModifier> {
     public static final Codec<NameModifier> CODEC = RecordCodecBuilder.create(i -> i.group(
@@ -15,5 +17,10 @@ public record NameModifier(String prefix, String suffix, int color) implements M
     @Override
     public ModifierType<NameModifier> getType() {
         return ModifierType.NAME;
+    }
+
+    @Override
+    public Text getTooltip() {
+        return Text.translatable("item.reforge_stone.tooltip.name", this.prefix, this.suffix).fillStyle(Style.EMPTY.withColor(this.color));
     }
 }

@@ -5,9 +5,9 @@ import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 
 @EmiEntrypoint
-public class SowRecipePlugin implements EmiPlugin {
+public class ReforgeStoneRecipePlugin implements EmiPlugin {
     @Override
     public void register(EmiRegistry registry) {
-        SongStoneRecipeHelper.register(registry);
+        ReforgeStoneRecipeHelper.register(registry);
     }
 }

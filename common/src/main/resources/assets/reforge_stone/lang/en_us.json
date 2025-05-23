@@ -1,3 +1,7 @@
 {
-  "item.reforge_stone.reforge_stone_tooltip": "Reforge Stone: "
+  "item.reforge_stone.reforge_stone_tooltip": "Reforge Stone: %s",
+  "item.reforge_stone.tooltip.attribute": "Attribute: %s",
+  "item.reforge_stone.tooltip.glint": "Glint Color: %s | Always Display: %s",
+  "item.reforge_stone.tooltip.max_damage": "Max Damage: +%s",
+  "item.reforge_stone.tooltip.name": "Prefix: %s | Suffix: %s"
 }
