@@ -13,17 +13,16 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.Random;
 
 public class ReforgeStoneRecipeHelper {
-    private static final List<Item> ALL_WEAPONS = Registries.ITEM.stream().filter(x -> x instanceof SwordItem || x instanceof AxeItem).toList();
-
     public static void register(EmiRegistry registry) {
         if (Static.server == null) return;
         for (StoneTypeData data : Static.server.getRegistryManager().get(StoneTypeRegistry.REGISTRY_KEY))
@@ -36,7 +35,6 @@ public class ReforgeStoneRecipeHelper {
         private final List<Item> targets;
         private final EmiIngredient ingredientsEmi, targetsEmi;
         private final int unique = new Random().nextInt();
-        private Item lastTarget = Items.AIR;
 
         private AnvilRecipe(StoneTypeData data) {
             this.id = Identifier.of(ReforgeStone.MOD_ID, "/anvil/" + data.translate());
@@ -85,11 +83,13 @@ public class ReforgeStoneRecipeHelper {
         public void addWidgets(WidgetHolder widgets) {
             widgets.addTexture(EmiTexture.PLUS, 27, 3);
             widgets.addTexture(EmiTexture.EMPTY_ARROW, 75, 1);
-            widgets.addGeneratedSlot(r -> EmiIngredient.of(Ingredient.ofItems(this.lastTarget = RandomHelper.randomOne(r, this.targets))), this.unique, 0, 0);
+            widgets.addGeneratedSlot(r -> EmiIngredient.of(Ingredient.ofItems(RandomHelper.randomOne(r, this.targets))), this.unique, 0, 0);
             widgets.addSlot(this.ingredientsEmi, 49, 0);
-            ItemStack stack = new ItemStack(this.lastTarget);
-            StoneTypeRegistry.addModifiers(this.data, stack);
-            widgets.addGeneratedSlot(r -> EmiIngredient.of(Ingredient.ofStacks(stack)), this.unique, 107, 0).recipeContext(this);
+            widgets.addGeneratedSlot(r -> {
+                ItemStack stack = new ItemStack(RandomHelper.randomOne(r, this.targets));
+                StoneTypeRegistry.addModifiers(this.data, stack);
+                return EmiIngredient.of(Ingredient.ofStacks(stack));
+            }, this.unique, 107, 0).recipeContext(this);
         }
     }
 }

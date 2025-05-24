@@ -1,0 +1,7 @@
+{
+  "item.reforge_stone.reforge_stone_tooltip": "重铸石：%s",
+  "item.reforge_stone.tooltip.attribute": "属性：%s",
+  "item.reforge_stone.tooltip.glint": "附魔颜色：%s | 一直显示：%s",
+  "item.reforge_stone.tooltip.max_damage": "最大耐久度：+%s",
+  "item.reforge_stone.tooltip.name": "前缀：%s | 后缀：%s"
+}

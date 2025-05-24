@@ -2,6 +2,7 @@ package com.iafenvoy.reforgestone.mixin;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.iafenvoy.reforgestone.Static;
 import com.iafenvoy.reforgestone.data.modifier.Modifier;
 import com.iafenvoy.reforgestone.data.modifier.builtin.AttributeModifier;
 import com.iafenvoy.reforgestone.data.modifier.builtin.MaxDamageModifier;
@@ -36,7 +37,7 @@ public class ItemStackMixin {
         List<Modifier<?>> modifiers = StoneTypeRegistry.getModifiers(this.reforge_stone$self());
         for (Modifier<?> modifier : modifiers)
             if (modifier instanceof AttributeModifier m)
-                map.put(m.attribute(), new EntityAttributeModifier("Modifier", m.value(), m.operation()));
+                map.put(m.attribute(), new EntityAttributeModifier(Static.ATTRIBUTE_UUID, "Modifier", m.value(), m.operation()));
         cir.setReturnValue(map);
     }
 
