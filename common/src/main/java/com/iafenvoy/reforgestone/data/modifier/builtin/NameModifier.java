@@ -21,6 +21,6 @@ public record NameModifier(String prefix, String suffix, int color) implements M
 
     @Override
     public Text getTooltip() {
-        return Text.translatable("item.reforge_stone.tooltip.name", this.prefix, this.suffix).fillStyle(Style.EMPTY.withColor(this.color));
+        return Text.translatable("item.reforge_stone.tooltip.name", Text.translatable(this.prefix), Text.translatable(this.suffix)).fillStyle(Style.EMPTY.withColor(this.color));
     }
 }
